@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="" id="app">
+    <input type="text" v-model="name">
+    <button v-on:click="doAdd">モンスターを追加</button>
+    <ul>
+      <li v-for="(item, index) in list"
+        v-bind:key="item.id"
+        v-bind:class="{ tuyoi: item.hp > 300, yowai: item.hp <= 100 }"
+        v-if="item.hp">
+        ID:{{ item.id }} {{ item.name }} {{ item.hp }}
+        <span v-if="item.hp > 300">つよい！！</span>
+        <span v-if="item.hp <= 100">よわい！！</span>
+        <span v-if="item.hp <= 50 ">瀕死！！</span>
+        <button v-on:click="doAttack(index)">攻撃する</button>
+        <button v-on:click="doRemove(index)">モンスターを削除</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      name: 'キマイラ',
+      list: [
+        { id: 1, name: 'スライム', hp: 100 },
+        { id: 2, name: 'ゴブリン', hp: 200 },
+        { id: 3, name: 'ドラゴン', hp: 500 }
+      ]
+    },
+    methods: {
+      doAdd: function() {
+        // IDの最大値を取得
+        var max = this.list.reduce(function(a, b) {
+          return a > b.id ? a : b.id
+        }, 0)
+        // 配列に追加
+        this.list.push({
+          id: max + 1,
+          name: this.name,
+          hp: 500
+        })
+      },
+
+      doRemove: function(index) {
+        this.list.splice(index, 1)
+      },
+
+      doAttack: function(index) {
+        this.list[index].hp -= 10
+      }
+    }
+  })
+
+  </script>
+
+</body>
+</html>
