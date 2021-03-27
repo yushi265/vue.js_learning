@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <!-- 複数行テキスト -->
+    <textarea v-model="message"></textarea>
+    <pre>{{ message }}</pre>
+
+    <!-- チェックボックス -->
+    <div>
+      <label>
+        <input type="checkbox" v-model="val">{{ val }}
+      </label>
+    </div>
+
+    <!-- 複数要素 -->
+    <div>
+      <label><input type="checkbox" v-model="value" value="A">A</label>
+      <label><input type="checkbox" v-model="value" value="B">B</label>
+      <label><input type="checkbox" v-model="value" value="C">C</label>
+      <p>{{ value }}</p>
+    </div>
+
+    <!-- ラジオボタン -->
+    <div>
+      <label><input type="radio" value="a" v-model="radio">A</label>
+      <label><input type="radio" value="b" v-model="radio">B</label>
+      <label><input type="radio" value="c" v-model="radio">C</label>
+      <p>{{ radio }}</p>
+    </div>
+
+    <!-- 複数要素 -->
+    <div>
+      <select v-model="multi" multiple>
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+      </select>
+      <p>{{ multi }}</p>
+    </div>
+
+    <!-- 画像ファイル -->
+    <input type="file" v-on:change="handleChange">
+    <div v-if="preview"><img v-bind:src="preview"></div>
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        // 複数行テキスト
+        message: 'Hello!',
+        // チェックボックス
+        val: true,
+        // 複数要素
+        value: [],
+        // ラジオボタン
+        radio: '',
+        // 複数要素
+        multi: [],
+        // 画像ファイル
+        preview: ''
+      },
+      methods: {
+        handleChange: function(e) {
+          var file = e.target.files[0]
+          if (file && file.type.match(/^image\/(png|jpeg)$/)) {
+            this.preview = window.URL.createObjectURL(file)
+          }
+        }
+      }
+    })
+
+  </script>
+
+</body>
+</html>
