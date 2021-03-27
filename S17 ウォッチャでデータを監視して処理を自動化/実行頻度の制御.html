@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+
+  <div id="app">
+    <input type="text" v-model="value">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    new Vue({
+        el: '#app',
+        data: {
+          value: '編集してみてね'
+        },
+        watch: {
+          value: _.debounce(function (newVal) {
+            // ここへコストの高い処理を書く
+            console.log(newVal)
+          },
+            // valueの変化が終わるのを待つ時間をミリ秒で指定
+            500)
+        }
+      })
+
+  </script>
+
+</body>
+</html>
