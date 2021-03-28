@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <comp-child v-on:childs-event="parentMethod"></comp-child>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    Vue.component('comp-child', {
+      template: '<button v-on:click="handleClick">イベント発火</button>',
+      methods: {
+        handleClick: function () {
+          this.$emit('childs-event')
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      methods: {
+        parentMethod: function () {
+          alert('イベントをキャッチ！')
+        }
+      }
+    })
+
+  </script>
+
+</body>
+</html>
