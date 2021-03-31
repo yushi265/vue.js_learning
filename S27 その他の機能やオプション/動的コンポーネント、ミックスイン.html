@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <button v-on:click="current^=1">コンポーネントの切り替え</button>
+    <div v-bind:is="component"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    var mixin = {
+      created: function () {
+        this.hello()
+      },
+      methods: {
+        hello: function () {
+          console.log('hello from mixin!')
+        }
+      }
+    }
+
+    Vue.component('my-component-a', {
+      mixins: [mixin],
+      template: '<div class="my-component-a">component A</div>'
+    })
+    
+    Vue.component('my-component-b', {
+      mixins: [mixin],
+      template: '<div class="my-component-b">component B</div>'
+    })
+
+    new Vue({
+      el: '#app',
+      data: {
+        componentTypes: ['my-component-a', 'my-component-b'],
+        current: 0
+      },
+      computed: {
+        component: function () {
+          return this.componentTypes[this.current]
+        }
+      }
+    })
+
+  </script>
+
+</body>
+</html>

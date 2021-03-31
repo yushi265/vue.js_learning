@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <p><button @click="show=!show">切り替え</button></p>
+    <transition name="demo">
+      <div v-show="show">
+        トランジションさせたい要素
+      </div>
+    </transition>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        show: true
+      }
+    })
+
+  </script>
+
+  <style>
+    .demo-enter-active,
+    .demo-leave-active {
+      transition: opacity 1s, transform 1s;
+    }
+    /* 表示するときは左から */
+    .demo-enter {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .demo-enter-to {
+      opacity: 1;
+    }
+    /* 消えるときは下へ */
+    .demo-leave {
+      opacity: 1;
+    }
+    .demo-leave-to {
+      opacity: 0;
+      transform: translateY(50px);
+      /* transform:skew(15deg,15deg); */
+      /* transform:skewX(30deg); */
+    }
+
+  </style>
+
+</body>
+</html>
